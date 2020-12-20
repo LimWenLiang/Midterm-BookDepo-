@@ -45,16 +45,16 @@ class _DetailScreenState extends State<DetailScreen> {
                       child: Container(
                           margin: EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Colors.black,
                               border: Border.all(
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: Row(
                             children: [
                               Text(widget.book.rating,
-                                  style: TextStyle(color: Colors.black)),
+                                  style: TextStyle(color: Colors.white)),
                               Icon(Icons.star, color: Colors.yellow[600]),
                             ],
                           )),
@@ -68,8 +68,10 @@ class _DetailScreenState extends State<DetailScreen> {
                     Text(widget.book.booktitle,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 17,
+                          fontSize: 19,
                           fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          decoration: TextDecoration.underline,
                         )),
                     SizedBox(height: 10),
                     Row(children: [

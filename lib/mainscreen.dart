@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'book.dart';
 import 'detailscreen.dart';
 
@@ -75,7 +76,7 @@ class _MainScreenState extends State<MainScreen> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 12,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.bold, color: Colors.black,
                                     )),
                                 SizedBox(height: 3),
                                 Text(bookList[index]['author'],
@@ -93,9 +94,9 @@ class _MainScreenState extends State<MainScreen> {
                               child: Container(
                                   margin: EdgeInsets.all(5),
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       border: Border.all(
-                                        color: Colors.white,
+                                        color: Colors.black,
                                       ),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
@@ -103,8 +104,9 @@ class _MainScreenState extends State<MainScreen> {
                                     children: [
                                       Text(bookList[index]["rating"],
                                           style:
-                                              TextStyle(color: Colors.black)),
-                                      Icon(Icons.star, color: Colors.yellow[600]),
+                                              TextStyle(color: Colors.white)),
+                                      Icon(Icons.star,
+                                          color: Colors.yellow[600]),
                                     ],
                                   )),
                               top: 5,
@@ -138,7 +140,11 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
-  _loadRestaurantDetail(int index) {
+  _loadRestaurantDetail(int index) async {
+    ProgressDialog pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false);
+    pr.style(message: "Loading...");
+    await pr.show();
     print(bookList[index]['booktitle']);
     Book book = new Book(
       bookid: bookList[index]['bookid'],
@@ -150,6 +156,7 @@ class _MainScreenState extends State<MainScreen> {
       publisher: bookList[index]['publisher'],
       cover: bookList[index]['cover'],
     );
+    await pr.hide();
 
     Navigator.push(
         context,
